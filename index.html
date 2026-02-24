@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Human Hybrids for Marketing Research | MKT 397</title>
+  <meta name="description" content="PhD seminar discussion of Arora, Chakraborty & Nishimura (2025) — AI-Human Hybrids for Marketing Research. MKT 397, UT Austin.">
+  <meta property="og:title" content="AI-Human Hybrids for Marketing Research">
+  <meta property="og:description" content="MKT 397 Paper Discussion | UT Austin | Spring 2026">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9670;</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --cream: #faf8f5;
+      --warm-gray: #f2efe9;
+      --mid-gray: #6b6b6b;
+      --light-gray: #e8e4de;
+      --gold: #b8960c;
+      --gold-light: #d4af37;
+      --gold-muted: rgba(184, 150, 12, 0.12);
+      --font-heading: 'Playfair Display', 'Georgia', serif;
+      --font-body: 'Inter', -apple-system, 'Helvetica Neue', sans-serif;
+      --max-width: 920px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --duration: 0.7s;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--black);
+      background: var(--cream);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--gold-muted); color: var(--black); }
+
+    img { max-width: 100%; display: block; }
+
+    a { color: var(--gold); text-decoration: none; transition: opacity 0.3s; }
+    a:hover { opacity: 0.7; }
+
+    /* ===== SCROLL PROGRESS ===== */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      z-index: 10001; transition: none;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+      padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: var(--light-gray);
+    }
+    .nav-brand {
+      font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+    }
+    .nav.at-hero .nav-brand { color: var(--gold-light); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--mid-gray);
+      position: relative; padding-bottom: 2px; transition: color 0.3s;
+    }
+    .nav.at-hero .nav-links a { color: rgba(250, 248, 245, 0.5); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px;
+      background: var(--gold); transition: width 0.4s var(--ease);
+    }
+    .nav-links a.active { color: var(--black); }
+    .nav.at-hero .nav-links a.active { color: var(--cream); }
+    .nav-links a.active::after { width: 100%; }
+    .nav-author {
+      font-size: 0.68rem; font-weight: 400; letter-spacing: 0.06em; color: var(--mid-gray);
+    }
+    .nav.at-hero .nav-author { color: rgba(250, 248, 245, 0.4); }
+
+    /* Mobile nav */
+    .nav-hamburger {
+      display: none; cursor: pointer; flex-direction: column;
+      gap: 5px; background: none; border: none; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 20px; height: 1.5px; background: var(--mid-gray);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav.at-hero .nav-hamburger span { background: var(--cream); }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; background: rgba(10,10,10,0.97);
+      z-index: 9999; flex-direction: column; align-items: center; justify-content: center;
+      gap: 2rem; opacity: 0; transition: opacity 0.4s;
+    }
+    .mobile-menu.open { display: flex; opacity: 1; }
+    .mobile-menu a {
+      font-family: var(--font-heading); font-size: 1.5rem; color: var(--cream);
+      letter-spacing: 0.02em; opacity: 0; transform: translateY(20px);
+    }
+    .mobile-menu.open a {
+      opacity: 1; transform: translateY(0);
+      transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+    }
+    .mobile-menu-close {
+      position: absolute; top: 1.2rem; right: 1.5rem; background: none; border: none;
+      color: var(--cream); font-size: 1.5rem; cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-author { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ===== CONTENT CONTAINER ===== */
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
+
+    /* ===== SECTIONS ===== */
+    section { position: relative; }
+    .section-cream { background: var(--cream); padding: 6rem 0; }
+    .section-white { background: var(--white); padding: 6rem 0; }
+    .section-black { background: var(--black); color: var(--cream); padding: 6rem 0; }
+    .section-divider {
+      width: 60px; height: 1px; background: var(--gold-muted); margin: 0 auto 3rem;
+    }
+    .section-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .section-black .section-label { color: var(--gold-light); }
+    .section-title {
+      font-family: var(--font-heading); font-size: 2.2rem; font-weight: 400;
+      line-height: 1.25; margin-bottom: 2rem; letter-spacing: -0.01em;
+    }
+    .section-black .section-title { color: var(--cream); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh; background: var(--black); color: var(--cream);
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 4rem 2rem; position: relative;
+    }
+    .hero-inner { max-width: 700px; }
+    .hero-journal {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(250,248,245,0.4); margin-bottom: 2.5rem;
+      animation: fadeUp 1s var(--ease) 0.2s both;
+    }
+    .hero-title {
+      font-family: var(--font-heading); font-size: 3.2rem; font-weight: 400;
+      line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.2rem;
+      animation: fadeUp 1s var(--ease) 0.5s both;
+    }
+    .hero-subtitle {
+      font-size: 1.1rem; font-weight: 300; color: var(--gold-light);
+      letter-spacing: 0.04em; margin-bottom: 2rem;
+      animation: fadeUp 1s var(--ease) 0.8s both;
+    }
+    .hero-authors {
+      font-size: 0.85rem; font-weight: 400; color: rgba(250,248,245,0.55);
+      letter-spacing: 0.03em; margin-bottom: 2.5rem;
+      animation: fadeUp 1s var(--ease) 1s both;
+    }
+    .hero-rule {
+      width: 60px; height: 1px; background: var(--gold); margin: 0 auto 2.5rem;
+      animation: fadeUp 1s var(--ease) 1.2s both;
+    }
+    .hero-meta {
+      font-size: 0.72rem; font-weight: 400; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(250,248,245,0.3); line-height: 2;
+      animation: fadeUp 1s var(--ease) 1.4s both;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      animation: fadeUp 1s var(--ease) 1.8s both;
+    }
+    .hero-scroll svg {
+      width: 20px; height: 20px; stroke: rgba(250,248,245,0.25);
+      animation: bounce 2.5s infinite;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2rem; }
+      .hero-subtitle { font-size: 0.95rem; }
+      .section-title { font-size: 1.7rem; }
+      .section-cream, .section-white, .section-black { padding: 3.5rem 0; }
+    }
+
+    /* ===== STAT CARDS ===== */
+    .stat-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
+      margin-bottom: 3rem;
+    }
+    .stat-card {
+      background: var(--white); border: 1px solid var(--light-gray);
+      padding: 1.8rem 1.2rem; text-align: center; transition: border-color 0.3s;
+    }
+    .stat-card:hover { border-color: var(--gold); }
+    .stat-number {
+      font-family: var(--font-heading); font-size: 1.8rem; font-weight: 400;
+      color: var(--black); margin-bottom: 0.4rem;
+    }
+    .stat-desc {
+      font-size: 0.78rem; color: var(--mid-gray); line-height: 1.5; margin-bottom: 0.6rem;
+    }
+    .stat-label {
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold);
+    }
+
+    @media (max-width: 768px) {
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .stat-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== OVERVIEW TEXT ===== */
+    .overview-text {
+      font-size: 1.05rem; line-height: 1.85; color: var(--black); max-width: 780px;
+    }
+    .overview-text strong { font-weight: 600; }
+
+    /* ===== DISCUSSION PROMPT ===== */
+    .discussion-prompt {
+      border-left: 2px solid var(--gold); padding: 1.5rem 1.8rem;
+      margin-top: 2.5rem; background: var(--gold-muted); cursor: pointer;
+      transition: background 0.3s;
+    }
+    .section-black .discussion-prompt {
+      background: rgba(184, 150, 12, 0.08); border-left-color: var(--gold-light);
+    }
+    .prompt-header {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .prompt-label {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .prompt-toggle {
+      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--mid-gray);
+      transition: color 0.3s;
+    }
+    .discussion-prompt:hover .prompt-toggle { color: var(--gold); }
+    .prompt-content {
+      max-height: 0; overflow: hidden; transition: max-height 0.5s var(--ease), margin 0.5s;
+    }
+    .discussion-prompt.open .prompt-content { max-height: 500px; margin-top: 1rem; }
+    .prompt-content p {
+      font-size: 0.95rem; line-height: 1.75; color: var(--black);
+    }
+    .section-black .prompt-content p { color: rgba(250,248,245,0.8); }
+    .prompt-content p strong { font-weight: 600; }
+
+    /* ===== PULL QUOTE ===== */
+    .pull-quote {
+      font-family: var(--font-heading); font-size: 1.35rem; font-style: italic;
+      line-height: 1.6; text-align: center; max-width: 680px; margin: 3rem auto;
+      color: var(--black); position: relative; padding: 0 1rem;
+    }
+    .pull-quote::before {
+      content: ''; position: absolute; top: -1.5rem; left: 50%;
+      transform: translateX(-50%); width: 40px; height: 1px; background: var(--gold);
+    }
+
+    /* ===== FRAMEWORK DIAGRAM ===== */
+    .framework-visual {
+      display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0;
+      align-items: stretch; margin: 3rem 0;
+    }
+    .fw-box {
+      padding: 2rem 1.5rem; text-align: center; border: 1px solid var(--light-gray);
+      background: var(--white); transition: border-color 0.3s, transform 0.3s;
+    }
+    .fw-box:hover { border-color: var(--gold); }
+    .fw-box.center {
+      border-color: var(--gold); background: var(--cream);
+      transform: scale(1.02);
+    }
+    .fw-box-title {
+      font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 0.8rem;
+    }
+    .fw-box-subtitle {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .fw-box ul {
+      list-style: none; font-size: 0.82rem; color: var(--mid-gray); line-height: 2;
+    }
+    .fw-connector {
+      display: flex; align-items: center; justify-content: center; padding: 0 0.5rem;
+      color: var(--light-gray); font-size: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .framework-visual {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .fw-connector { transform: rotate(90deg); padding: 0.5rem 0; }
+      .fw-box.center { transform: scale(1); }
+    }
+
+    /* ===== ACCORDION / EXPANDABLE CARDS ===== */
+    .accordion { margin: 2rem 0; }
+    .accordion-item {
+      border: 1px solid var(--light-gray); margin-bottom: -1px;
+      background: var(--white); transition: border-color 0.3s;
+    }
+    .accordion-item:first-child { border-top-left-radius: 2px; border-top-right-radius: 2px; }
+    .accordion-item:last-child { border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; }
+    .accordion-item:hover { border-color: var(--gold); z-index: 1; position: relative; }
+    .accordion-trigger {
+      width: 100%; padding: 1.2rem 1.5rem; background: none; border: none;
+      cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--font-body); font-size: 0.92rem; font-weight: 500;
+      color: var(--black); text-align: left; transition: color 0.3s;
+    }
+    .accordion-trigger:hover { color: var(--gold); }
+    .accordion-icon {
+      width: 20px; height: 20px; position: relative; flex-shrink: 0; margin-left: 1rem;
+    }
+    .accordion-icon::before, .accordion-icon::after {
+      content: ''; position: absolute; background: var(--mid-gray);
+      transition: transform 0.3s var(--ease);
+    }
+    .accordion-icon::before { width: 12px; height: 1px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .accordion-icon::after { width: 1px; height: 12px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .accordion-item.open .accordion-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+    .accordion-body {
+      display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s var(--ease);
+    }
+    .accordion-item.open .accordion-body { grid-template-rows: 1fr; }
+    .accordion-body-inner {
+      overflow: hidden; padding: 0 1.5rem;
+      transition: padding 0.4s var(--ease);
+    }
+    .accordion-item.open .accordion-body-inner { padding: 0 1.5rem 1.5rem; }
+    .accordion-body-inner p {
+      font-size: 0.9rem; line-height: 1.8; color: var(--mid-gray);
+    }
+    .accordion-body-inner ul {
+      font-size: 0.88rem; line-height: 2; color: var(--mid-gray);
+      padding-left: 1rem;
+    }
+
+    /* ===== STUDY STEPS (VERTICAL TIMELINE) ===== */
+    .study-steps { margin: 2.5rem 0; position: relative; }
+    .study-step {
+      display: flex; gap: 1.5rem; margin-bottom: 2rem; position: relative;
+    }
+    .step-marker {
+      width: 36px; height: 36px; border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading); font-size: 0.85rem; color: var(--gold);
+      flex-shrink: 0; position: relative;
+    }
+    .step-marker::after {
+      content: ''; position: absolute; top: 36px; left: 50%;
+      width: 1px; height: calc(100% + 1rem); background: var(--light-gray);
+      transform: translateX(-50%);
+    }
+    .study-step:last-child .step-marker::after { display: none; }
+    .step-content { flex: 1; padding-top: 0.3rem; }
+    .step-title {
+      font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--black);
+    }
+    .step-desc {
+      font-size: 0.88rem; line-height: 1.75; color: var(--mid-gray);
+    }
+
+    /* ===== COMPARISON TABLE ===== */
+    .comparison-table {
+      width: 100%; border-collapse: collapse; margin: 2rem 0; font-size: 0.85rem;
+    }
+    .comparison-table thead th {
+      font-weight: 600; font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold); padding: 1rem;
+      border-bottom: 1px solid var(--gold); text-align: left;
+    }
+    .comparison-table tbody td {
+      padding: 1rem; border-bottom: 1px solid var(--light-gray);
+      color: var(--mid-gray); vertical-align: top;
+    }
+    .comparison-table tbody td:first-child { font-weight: 500; color: var(--black); }
+    .comparison-table tbody tr:hover { background: var(--gold-muted); }
+
+    @media (max-width: 640px) {
+      .comparison-table { font-size: 0.75rem; }
+      .comparison-table thead th, .comparison-table tbody td { padding: 0.7rem 0.5rem; }
+    }
+
+    /* ===== CRITICAL CALLOUT ===== */
+    .critical-callout {
+      border: 1px solid var(--gold); padding: 1.5rem 1.8rem; margin: 2rem 0;
+      position: relative;
+    }
+    .critical-callout::before {
+      content: attr(data-label); position: absolute; top: -0.5rem; left: 1.5rem;
+      background: var(--cream); padding: 0 0.5rem;
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .section-white .critical-callout::before { background: var(--white); }
+    .critical-callout p {
+      font-size: 0.92rem; line-height: 1.8; color: var(--mid-gray);
+      font-style: italic;
+    }
+
+    /* ===== KEY FINDINGS LIST ===== */
+    .findings-list { list-style: none; margin: 2rem 0; }
+    .finding-item {
+      display: flex; gap: 1.8rem; padding: 2rem 0;
+      border-bottom: 1px solid rgba(250,248,245,0.08);
+    }
+    .finding-item:last-child { border-bottom: none; }
+    .finding-number {
+      font-family: var(--font-heading); font-size: 2rem; color: var(--gold-light);
+      flex-shrink: 0; width: 50px; text-align: right; line-height: 1;
+      padding-top: 0.15rem;
+    }
+    .finding-content { flex: 1; }
+    .finding-title {
+      font-family: var(--font-heading); font-size: 1.2rem; color: var(--cream);
+      margin-bottom: 0.6rem;
+    }
+    .finding-desc {
+      font-size: 0.9rem; line-height: 1.75; color: rgba(250,248,245,0.6);
+    }
+
+    /* ===== LIMITATIONS 3-COL ===== */
+    .limitations-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 2rem 0;
+    }
+    .limitation-col h4 {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+      padding-bottom: 0.5rem; border-bottom: 1px solid var(--gold-muted);
+    }
+    .limitation-col ul {
+      list-style: none; font-size: 0.88rem; line-height: 1.8; color: var(--mid-gray);
+    }
+    .limitation-col li { padding: 0.5rem 0; border-bottom: 1px solid var(--light-gray); }
+    .limitation-col li:last-child { border-bottom: none; }
+
+    @media (max-width: 768px) {
+      .limitations-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== QUALITY LADDER (BAR CHART) ===== */
+    .quality-ladder { margin: 2.5rem 0; }
+    .ladder-row {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+    }
+    .ladder-label {
+      width: 140px; font-size: 0.8rem; font-weight: 500; color: var(--mid-gray);
+      text-align: right; flex-shrink: 0;
+    }
+    .ladder-bar-wrap {
+      flex: 1; height: 28px; background: var(--light-gray); position: relative;
+      overflow: hidden;
+    }
+    .ladder-bar {
+      height: 100%; background: var(--gold); width: 0;
+      transition: width 1.2s var(--ease);
+    }
+    .ladder-bar.ref { background: var(--black); }
+    .ladder-value {
+      font-size: 0.72rem; font-weight: 600; color: var(--mid-gray); width: 50px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 640px) {
+      .ladder-label { width: 100px; font-size: 0.7rem; }
+    }
+
+    /* ===== GENAI DEMO ===== */
+    .research-cards { display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0; }
+    .research-card {
+      border: 1px solid var(--light-gray); background: var(--white);
+      transition: border-color 0.3s;
+    }
+    .research-card:hover { border-color: var(--gold); }
+    .research-card-header {
+      padding: 1.3rem 1.5rem; cursor: pointer;
+      display: flex; align-items: flex-start; justify-content: space-between;
+    }
+    .rc-question {
+      font-family: var(--font-heading); font-size: 1.05rem; flex: 1;
+      padding-right: 1rem;
+    }
+    .rc-badge {
+      font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.3rem 0.6rem; flex-shrink: 0;
+      border: 1px solid var(--gold); color: var(--gold); margin-top: 0.15rem;
+    }
+    .research-card-body {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s var(--ease);
+    }
+    .research-card.open .research-card-body { grid-template-rows: 1fr; }
+    .research-card-body-inner { overflow: hidden; }
+    .rc-layer {
+      padding: 1.2rem 1.5rem; border-top: 1px solid var(--light-gray);
+    }
+    .rc-layer-label {
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
+    }
+    .rc-layer p, .rc-layer ul {
+      font-size: 0.88rem; line-height: 1.8; color: var(--mid-gray);
+    }
+    .rc-layer ul { padding-left: 1rem; }
+
+    /* Chat transcript */
+    .chat-transcript { margin: 2rem 0; }
+    .chat-msg {
+      display: flex; margin-bottom: 1rem; gap: 0.8rem; align-items: flex-start;
+    }
+    .chat-msg.human { flex-direction: row; }
+    .chat-msg.ai { flex-direction: row-reverse; }
+    .chat-msg.reflection { justify-content: center; flex-direction: column; align-items: center; }
+    .chat-avatar {
+      width: 28px; height: 28px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.05em;
+    }
+    .chat-msg.human .chat-avatar { background: var(--black); color: var(--cream); }
+    .chat-msg.ai .chat-avatar { background: var(--gold); color: var(--white); }
+    .chat-bubble {
+      max-width: 75%; padding: 1rem 1.2rem; font-size: 0.85rem; line-height: 1.7;
+    }
+    .chat-msg.human .chat-bubble { background: var(--cream); color: var(--black); }
+    .chat-msg.ai .chat-bubble { background: var(--warm-gray); color: var(--black); }
+    .chat-msg.reflection .chat-bubble {
+      max-width: 85%; background: transparent; border: 1px solid var(--gold);
+      color: var(--mid-gray); font-style: italic; text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .chat-bubble { max-width: 90%; }
+    }
+
+    /* ===== DISCUSSION ROADMAP TIMELINE ===== */
+    .timeline { margin: 2rem 0; position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px; background: var(--light-gray);
+    }
+    .timeline-item { position: relative; margin-bottom: 2.5rem; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -2rem; top: 0.35rem;
+      width: 7px; height: 7px; border: 1px solid var(--gold);
+      transform: rotate(45deg); background: var(--cream);
+    }
+    .timeline-phase {
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem;
+    }
+    .timeline-title {
+      font-family: var(--font-heading); font-size: 1.05rem; margin-bottom: 0.5rem;
+    }
+    .timeline-desc {
+      font-size: 0.88rem; line-height: 1.75; color: var(--mid-gray);
+    }
+
+    /* ===== QUICK QUESTIONS ===== */
+    .quick-questions {
+      list-style: none; margin: 2rem 0; counter-reset: qq;
+    }
+    .quick-questions li {
+      counter-increment: qq; padding: 0.8rem 0; border-bottom: 1px solid var(--light-gray);
+      font-size: 0.9rem; line-height: 1.7; color: var(--mid-gray);
+      display: flex; gap: 0.8rem;
+    }
+    .quick-questions li::before {
+      content: counter(qq, decimal-leading-zero);
+      font-family: var(--font-heading); font-size: 0.9rem;
+      color: var(--gold); flex-shrink: 0; width: 1.5rem;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--black); color: rgba(250,248,245,0.4); padding: 4rem 0;
+      text-align: center; font-size: 0.78rem; line-height: 2;
+    }
+    .footer-citation {
+      max-width: 600px; margin: 0 auto 2rem; font-size: 0.82rem;
+      line-height: 1.7; color: rgba(250,248,245,0.5);
+    }
+    .footer-rule {
+      width: 40px; height: 1px; background: var(--gold-muted);
+      margin: 1.5rem auto;
+    }
+    .footer-note {
+      font-size: 0.7rem; font-style: italic; color: rgba(250,248,245,0.25);
+      margin-top: 1.5rem;
+    }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .anim {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity var(--duration) var(--ease), transform var(--duration) var(--ease);
+    }
+    .anim.visible { opacity: 1; transform: translateY(0); }
+    .anim-delay-1 { transition-delay: 0.1s; }
+    .anim-delay-2 { transition-delay: 0.2s; }
+    .anim-delay-3 { transition-delay: 0.3s; }
+    .anim-delay-4 { transition-delay: 0.35s; }
+  </style>
+</head>
+
+<body>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- Navigation -->
+<nav class="nav at-hero" id="mainNav">
+  <span class="nav-brand">MKT 397</span>
+  <ul class="nav-links">
+    <li><a href="#overview" data-section="overview">Overview</a></li>
+    <li><a href="#framework" data-section="framework">Framework</a></li>
+    <li><a href="#study1" data-section="study1">Study 1</a></li>
+    <li><a href="#study2" data-section="study2">Study 2</a></li>
+    <li><a href="#findings" data-section="findings">Findings</a></li>
+    <li><a href="#limits" data-section="limits">Critique</a></li>
+    <li><a href="#genai" data-section="genai">GenAI Demo</a></li>
+    <li><a href="#roadmap" data-section="roadmap">Roadmap</a></li>
+  </ul>
+  <span class="nav-author">Bella Kang</span>
+  <button class="nav-hamburger" id="hamburgerBtn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileClose" aria-label="Close">&times;</button>
+  <a href="#overview">Overview</a>
+  <a href="#framework">Framework</a>
+  <a href="#study1">Study 1</a>
+  <a href="#study2">Study 2</a>
+  <a href="#findings">Findings</a>
+  <a href="#limits">Critique</a>
+  <a href="#genai">GenAI Demo</a>
+  <a href="#roadmap">Roadmap</a>
+</div>
+
+<!-- ===================== SECTION 1: HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <p class="hero-journal">Journal of Marketing &nbsp;&middot;&nbsp; Vol. 89, No. 2 &nbsp;&middot;&nbsp; 2025</p>
+    <h1 class="hero-title">AI&ndash;Human Hybrids for<br>Marketing Research</h1>
+    <p class="hero-subtitle">Leveraging Large Language Models as Collaborators</p>
+    <p class="hero-authors">Neeraj Arora &nbsp;&middot;&nbsp; Ishita Chakraborty &nbsp;&middot;&nbsp; Yohei Nishimura</p>
+    <div class="hero-rule"></div>
+    <p class="hero-meta">
+      MKT 397 Discussion &nbsp;|&nbsp; Led by Bella Kang<br>
+      Professor Rex Yuxing Du &nbsp;|&nbsp; UT Austin &nbsp;|&nbsp; Spring 2026
+    </p>
+  </div>
+  <div class="hero-scroll">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ===================== SECTION 2: PAPER AT A GLANCE ===================== -->
+<section class="section-cream" id="overview">
+  <div class="container">
+    <div class="section-divider anim"></div>
+    <p class="section-label anim">Paper at a Glance</p>
+    <h2 class="section-title anim">Why This Paper Matters</h2>
+
+    <div class="stat-grid">
+      <div class="stat-card anim">
+        <div class="stat-number">$84.3B</div>
+        <div class="stat-desc">Marketing research industry size (2023)</div>
+        <div class="stat-label">Context</div>
+      </div>
+      <div class="stat-card anim anim-delay-1">
+        <div class="stat-number">70%+</div>
+        <div class="stat-desc">CMOs already embracing GenAI (BCG 2023)</div>
+        <div class="stat-label">Adoption</div>
+      </div>
+      <div class="stat-card anim anim-delay-2">
+        <div class="stat-number">2</div>
+        <div class="stat-desc">Qualitative &amp; quantitative replications</div>
+        <div class="stat-label">Studies</div>
+      </div>
+      <div class="stat-card anim anim-delay-3">
+        <div class="stat-number">F500</div>
+        <div class="stat-desc">Fortune 500 food company partnership</div>
+        <div class="stat-label">Validation</div>
+      </div>
+    </div>
+
+    <div class="overview-text anim">
+      <p>As GenAI reshapes how firms generate insights, can LLMs move beyond automation to become genuine research <strong>collaborators</strong>? Arora, Chakraborty, and Nishimura answer this by partnering with a Fortune 500 food company to replicate two completed marketing studies&mdash;one qualitative, one quantitative&mdash;using a human&ndash;LLM hybrid approach. Their central premise: the hybrid outperforms either humans or AI working alone.</p>
+    </div>
+
+    <div class="discussion-prompt anim" onclick="this.classList.toggle('open')">
+      <div class="prompt-header">
+        <span class="prompt-label">Opening Question</span>
+        <span class="prompt-toggle">Click to reveal</span>
+      </div>
+      <div class="prompt-content">
+        <p>When you use ChatGPT or Claude for research tasks, do you think of the AI as a <strong>tool</strong> or a <strong>collaborator</strong>? What&rsquo;s the difference, and does the distinction matter for how we evaluate the quality of the output?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 3: CORE FRAMEWORK ===================== -->
+<section class="section-white" id="framework">
+  <div class="container">
+    <div class="section-divider anim"></div>
+    <p class="section-label anim">Core Framework</p>
+    <h2 class="section-title anim">The Hybrid Thesis</h2>
+
+    <div class="framework-visual anim">
+      <div class="fw-box">
+        <div class="fw-box-title">Human Only</div>
+        <div class="fw-box-subtitle">Traditional</div>
+        <ul>
+          <li>Deep domain expertise</li>
+          <li>Cultural &amp; ethical nuance</li>
+          <li>Limited scalability</li>
+          <li>High cost per respondent</li>
+        </ul>
+      </div>
+      <div class="fw-connector">&larr;</div>
+      <div class="fw-box center">
+        <div class="fw-box-title">AI&ndash;Human Hybrid</div>
+        <div class="fw-box-subtitle">Synergistic</div>
+        <ul>
+          <li>Complementary strengths</li>
+          <li>Scalable &amp; nuanced</li>
+          <li>Iterative refinement</li>
+          <li>Superior to either alone</li>
+        </ul>
+      </div>
+      <div class="fw-connector">&rarr;</div>
+      <div class="fw-box">
+        <div class="fw-box-title">AI Only</div>
+        <div class="fw-box-subtitle">Automated</div>
+        <ul>
+          <li>Rapid &amp; consistent</li>
+          <li>Pattern recognition at scale</li>
+          <li>Prone to hallucination</li>
+          <li>Lacks lived experience</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pull-quote anim">
+      &ldquo;The central premise is not replacement but augmentation&mdash;humans and LLMs possess complementary skills that, when combined, produce research outputs superior to either alone.&rdquo;
+    </div>
+
+    <div class="accordion anim">
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>What Humans Bring to the Hybrid</span>
+          <span class="accordion-icon"></span>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul>
+            <li>Domain expertise and contextual understanding of the business problem</li>
+            <li>Ethical judgment&mdash;knowing when <em>not</em> to use an LLM</li>
+            <li>Ability to detect cultural subtleties and emotional nuance in qualitative data</li>
+            <li>Creative framing of research questions and hypothesis generation</li>
+            <li>Quality gatekeeping: identifying hallucinations, biases, and artifacts</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>What LLMs Bring to the Hybrid</span>
+          <span class="accordion-icon"></span>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <ul>
+            <li>Scale&mdash;generate hundreds of synthetic respondents at minimal cost</li>
+            <li>Consistency in applying research protocols across interviews</li>
+            <li>Pattern recognition across vast corpora of training data</li>
+            <li>Rapid drafting of surveys, screeners, and demographic instruments</li>
+            <li>Ability to simulate diverse personas matching specific target characteristics</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>The Iterative Synergy Loop</span>
+          <span class="accordion-icon"></span>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p>The hybrid approach works as an iterative loop: <strong>Humans guide</strong> (define the problem, set parameters) &rarr; <strong>LLMs execute at scale</strong> (generate data, draft instruments) &rarr; <strong>Humans validate</strong> (check quality, catch errors) &rarr; <strong>LLMs refine</strong> (iterate based on feedback). This cycle repeats until the research output meets the human researcher&rsquo;s standards. The paper argues this loop is what makes the hybrid strictly superior.</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="discussion-prompt anim" onclick="this.classList.toggle('open')">
+      <div class="prompt-header">
+        <span class="prompt-label">Framework Challenge</span>
+        <span class="prompt-toggle">Click to reveal</span>
+      </div>
+      <div class="prompt-content">
+        <p>The paper frames the hybrid as strictly superior. Can you think of scenarios where the hybrid approach might be <strong>worse</strong> than human-only research? Consider coordination costs, the risk of <strong>anchoring</strong> on AI outputs, or the false confidence that comes from AI-generated &ldquo;data.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 4: STUDY 1 ===================== -->
+<section class="section-cream" id="study1">
+  <div class="container">
+    <div class="section-divider anim"></div>
+    <p class="section-label anim">Study 1 &mdash; Qualitative Research</p>
+    <h2 class="section-title anim">Can LLMs Conduct In-Depth Interviews?</h2>
+
+    <div class="overview-text anim" style="margin-bottom: 2rem;">
+      <p>The Fortune 500 food company had conducted qualitative research on <strong>Friendsgiving</strong>&mdash;the informal Thanksgiving celebration with friends. Using the original human study as &ldquo;ground truth,&rdquo; the researchers replicated the entire qualitative process with ChatGPT-4.</p>
+    </div>
+
+    <div class="study-steps anim">
+      <div class="study-step">
+        <div class="step-marker">1</div>
+        <div class="step-content">
+          <div class="step-title">Creating Synthetic Respondents</div>
+          <div class="step-desc">LLM prompted to generate personas matching target demographics&mdash;each given a backstory, food preferences, social habits, and personality traits. These are <em>simulations</em>, not real consumers.</div>
+        </div>
+      </div>
+      <div class="study-step">
+        <div class="step-marker">2</div>
+        <div class="step-content">
+          <div class="step-title">AI-Moderated In-Depth Interviews</div>
+          <div class="step-desc">LLM plays the role of interviewer, following a semi-structured guide. It probes, follows up, and adjusts questions based on the synthetic respondent&rsquo;s answers&mdash;mimicking the adaptive nature of human interviews.</div>
+        </div>
+      </div>
+      <div class="study-step">
+        <div class="step-marker">3</div>
+        <div class="step-content">
+          <div class="step-title">Theme Identification &amp; Analysis</div>
+          <div class="step-desc">LLM analyzes the generated transcripts, identifies recurring themes and patterns. Compared against themes identified by human researchers from the original study.</div>
+        </div>
+      </div>
+      <div class="study-step">
+        <div class="step-marker">4</div>
+        <div class="step-content">
+          <div class="step-title">Hybrid Validation by Expert Judges</div>
+          <div class="step-desc">Human researchers review AI-identified themes, cross-reference with original findings, and assess depth, accuracy, and missed dimensions. Expert judges rate the combined output.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: 1.2rem; margin: 2.5rem 0 1rem;" class="anim">Results Comparison</h3>
+    <div class="anim">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Human Only</th>
+            <th>AI Only</th>
+            <th>AI&ndash;Human Hybrid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Depth of insights</td>
+            <td>Baseline (reference)</td>
+            <td>Comparable depth</td>
+            <td><strong>Superior</strong></td>
+          </tr>
+          <tr>
+            <td>Themes identified</td>
+            <td>Full set (reference)</td>
+            <td>Missed some human themes</td>
+            <td>Best coverage</td>
+          </tr>
+          <tr>
+            <td>Novel themes</td>
+            <td>&mdash;</td>
+            <td>Found unique angles</td>
+            <td><strong>Most comprehensive</strong></td>
+          </tr>
+          <tr>
+            <td>Cultural nuance</td>
+            <td>Strong</td>
+            <td>Weaker</td>
+            <td>Strong (human-guided)</td>
+          </tr>
+          <tr>
+            <td>Coherence &amp; richness</td>
+            <td>Baseline</td>
+            <td>Higher information density</td>
+            <td><strong>Highest rated</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="critical-callout anim" data-label="Critical Analysis">
+      <p>The paper&rsquo;s most provocative qualitative finding: AI&ndash;human hybrid interviews were rated as <em>more insightful</em> than human-only interviews. But we should interrogate what &ldquo;insightful&rdquo; means here. Are LLM-generated themes truly novel insights, or sophisticated recombinations of training data? The LLM&rsquo;s &ldquo;Friendsgiving&rdquo; respondents draw from internet discourse about Friendsgiving&mdash;they do not draw from lived experience.</p>
+    </div>
+
+    <div class="discussion-prompt anim" onclick="this.classList.toggle('open')">
+      <div class="prompt-header">
+        <span class="prompt-label">Methodological Debate</span>
+        <span class="prompt-toggle">Click to reveal</span>
+      </div>
+      <div class="prompt-content">
+        <p>If an LLM generates a &ldquo;synthetic respondent&rdquo; who describes emotional associations with Friendsgiving, is that <strong>qualitative data</strong>? How does this challenge our understanding of what it means to &ldquo;interview&rdquo; someone? What epistemological assumptions does traditional qualitative research rest on, and which ones does this approach violate?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 5: STUDY 2 ===================== -->
+<section class="section-white" id="study2">
+  <div class="container">
+    <div class="section-divider anim"></div>
+    <p class="section-label anim">Study 2 &mdash; Quantitative Research</p>
+    <h2 class="section-title anim">Can LLMs Generate Survey Data That Matches Reality?</h2>
+
+    <div class="overview-text anim" style="margin-bottom: 2rem;">
+      <p>The second study involved testing a new <strong>refrigerated dog food</strong> concept. The company had already run a traditional quantitative survey; the researchers replicated it with LLM-generated responses, progressively improving quality with advanced techniques.</p>
+    </div>
+
+    <div class="accordion anim">
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Baseline LLM Generation</span>
+          <span class="accordion-icon"></span>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p>The LLM was asked to complete surveys as different consumer personas. Initial results showed the LLM correctly identified the <strong>direction</strong> (valence) of consumer preferences but was noisy on <strong>magnitude</strong>. In other words, LLMs understand <em>what</em> people tend to think but are less precise about <em>how strongly</em> they feel.</p>
+        </div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Few-Shot Learning Enhancement</span>
+          <span class="accordion-icon"></span>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p>By providing the LLM with a small number of real survey responses as examples (few-shot learning), response quality improved significantly. This is analogous to giving someone a few examples before asking them to estimate&mdash;the calibration effect is substantial. Even a handful of real data points helped the LLM better match the distribution of human responses.</p>
+        </div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Retrieval-Augmented Generation (RAG)</span>
+          <span class="accordion-icon"></span>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p>The LLM was given access to relevant external data&mdash;product reviews, market reports, category information&mdash;through RAG. This further improved response quality by grounding the LLM&rsquo;s outputs in real-world product context. Combined with few-shot learning, this approach produced the best quantitative results, though still not perfectly matching human survey data.</p>
+        </div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger">
+          <span>Survey Instrument Design</span>
+          <span class="accordion-icon"></span>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">
+          <p>Beyond data generation, the LLM proved excellent at <strong>creating survey drafts</strong>&mdash;generating introductions, screener questions, and demographic items with relative ease. This allowed human researchers to focus their effort on the substantive, business-critical parts of the questionnaire rather than spending time on boilerplate construction.</p>
+        </div></div>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: 1.2rem; margin: 2.5rem 0 1rem;" class="anim">Quality Improvement Trajectory</h3>
+    <div class="quality-ladder anim" id="qualityLadder">
+      <div class="ladder-row">
+        <div class="ladder-label">Baseline LLM</div>
+        <div class="ladder-bar-wrap"><div class="ladder-bar" data-width="45"></div></div>
+        <div class="ladder-value">Direction only</div>
+      </div>
+      <div class="ladder-row">
+        <div class="ladder-label">+ Few-Shot</div>
+        <div class="ladder-bar-wrap"><div class="ladder-bar" data-width="70"></div></div>
+        <div class="ladder-value">Improved</div>
+      </div>
+      <div class="ladder-row">
+        <div class="ladder-label">+ RAG</div>
+        <div class="ladder-bar-wrap"><div class="ladder-bar" data-width="85"></div></div>
+        <div class="ladder-value">Strong</div>
+      </div>
+      <div class="ladder-row">
+        <div class="ladder-label">Human Data</div>
+        <div class="ladder-bar-wrap"><div class="ladder-bar ref" data-width="100"></div></div>
+        <div class="ladder-value">Reference</div>
+      </div>
+    </div>
+
+    <div class="discussion-prompt anim" onclick="this.classList.toggle('open')">
+      <div class="prompt-header">
+        <span class="prompt-label">Practical Implications</span>
+        <span class="prompt-toggle">Click to reveal</span>
+      </div>
+      <div class="prompt-content">
+        <p>If an LLM can predict consumer preferences at ~85% accuracy at a fraction of the cost, when is &ldquo;good enough&rdquo; actually <strong>good enough</strong>? What types of marketing decisions require 95%+ accuracy, and which can tolerate higher error margins? Think: Super Bowl ad decision vs. A/B test on email subject lines.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 6: KEY FINDINGS ===================== -->
+<section class="section-black" id="findings">
+  <div class="container">
+    <div class="section-divider anim" style="background: rgba(250,248,245,0.1);"></div>
+    <p class="section-label anim">Synthesis</p>
+    <h2 class="section-title anim">Five Key Contributions</h2>
+
+    <ul class="findings-list">
+      <li class="finding-item anim">
+        <div class="finding-number">01</div>
+        <div class="finding-content">
+          <div class="finding-title">Hybrid &gt; Either Alone</div>
+          <div class="finding-desc">AI&ndash;human collaboration consistently outperforms both human-only and AI-only approaches across qualitative and quantitative marketing research tasks.</div>
+        </div>
+      </li>
+      <li class="finding-item anim">
+        <div class="finding-number">02</div>
+        <div class="finding-content">
+          <div class="finding-title">LLMs as Synthetic Interviewers</div>
+          <div class="finding-desc">LLMs can create believable respondent personas, conduct structured interviews, and identify themes&mdash;including some that human researchers missed entirely.</div>
+        </div>
+      </li>
+      <li class="finding-item anim">
+        <div class="finding-number">03</div>
+        <div class="finding-content">
+          <div class="finding-title">Direction Over Magnitude</div>
+          <div class="finding-desc">LLMs excel at predicting the direction and valence of consumer preferences but struggle with precise magnitudes without calibration data from real respondents.</div>
+        </div>
+      </li>
+      <li class="finding-item anim">
+        <div class="finding-number">04</div>
+        <div class="finding-content">
+          <div class="finding-title">Few-Shot + RAG = Leap in Quality</div>
+          <div class="finding-desc">Providing even small amounts of real data dramatically improves LLM output quality, suggesting hybrid approaches need minimal human data investment to yield strong results.</div>
+        </div>
+      </li>
+      <li class="finding-item anim">
+        <div class="finding-number">05</div>
+        <div class="finding-content">
+          <div class="finding-title">Human Oversight Remains Essential</div>
+          <div class="finding-desc">LLMs hallucinate, carry biases from training data, and cannot access genuinely novel information. Human judgment remains the critical quality gate in any hybrid workflow.</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="discussion-prompt anim" onclick="this.classList.toggle('open')">
+      <div class="prompt-header">
+        <span class="prompt-label">The Big Question</span>
+        <span class="prompt-toggle" style="color: rgba(250,248,245,0.4);">Click to reveal</span>
+      </div>
+      <div class="prompt-content">
+        <p>Finding #1 says hybrid beats both. Finding #5 says humans must oversee. But oversight has costs&mdash;time, expertise, potential anchoring on AI output. Is the &ldquo;hybrid&rdquo; framing a genuine methodological advance, or a way to make AI adoption palatable to researchers who fear replacement?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 7: LIMITATIONS ===================== -->
+<section class="section-cream" id="limits">
+  <div class="container">
+    <div class="section-divider anim"></div>
+    <p class="section-label anim">Critical Perspectives</p>
+    <h2 class="section-title anim">What the Paper Does Not (or Cannot) Say</h2>
+
+    <div class="limitations-grid anim">
+      <div class="limitation-col">
+        <h4>Methodological Concerns</h4>
+        <ul>
+          <li>Single company, two studies&mdash;how generalizable are these results?</li>
+          <li>Selection bias: which studies were chosen for replication and why?</li>
+          <li>Evaluation criteria for &ldquo;insightful&rdquo; and &ldquo;accurate&rdquo; are somewhat subjective</li>
+          <li>No longitudinal component&mdash;do hybrid advantages persist over time?</li>
+        </ul>
+      </div>
+      <div class="limitation-col">
+        <h4>Philosophical Tensions</h4>
+        <ul>
+          <li>Are synthetic respondents a form of data fabrication?</li>
+          <li>Epistemological status of LLM-generated &ldquo;qualitative data&rdquo;</li>
+          <li>Informed consent: who consents when the respondent is an AI persona?</li>
+          <li>Training data circularity: LLMs reflect existing discourse, not new truth</li>
+        </ul>
+      </div>
+      <div class="limitation-col">
+        <h4>Practical Barriers</h4>
+        <ul>
+          <li>LLM behavior changes across model versions (GPT-3.5 vs. 4 vs. next)</li>
+          <li>Reproducibility challenges: temperature, prompting sensitivity</li>
+          <li>Cost projections assume current API pricing (highly volatile)</li>
+          <li>Regulatory landscape for AI-generated research data is uncertain</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="critical-callout anim" data-label="The Uncomfortable Question">
+      <p>If a marketing research firm uses this approach, do they disclose to clients that their &ldquo;respondents&rdquo; were AI-generated? What happens to the $84.3B research industry if synthetic data becomes the norm? Who benefits, and who loses?</p>
+    </div>
+
+    <div class="discussion-prompt anim" onclick="this.classList.toggle('open')">
+      <div class="prompt-header">
+        <span class="prompt-label">Defend or Attack</span>
+        <span class="prompt-toggle">Click to reveal</span>
+      </div>
+      <div class="prompt-content">
+        <p>Split the room. Half of you argue that AI&ndash;human hybrid research is a <strong>legitimate, even superior</strong>, methodology. The other half argue it represents a <strong>fundamental threat to research integrity</strong>. What are your strongest arguments? Where do both sides agree?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 8: GENAI DEMO ===================== -->
+<section class="section-white" id="genai">
+  <div class="container">
+    <div class="section-divider anim"></div>
+    <p class="section-label anim">From Paper to Practice</p>
+    <h2 class="section-title anim">Using GenAI to Develop Research Ideas</h2>
+
+    <div class="overview-text anim" style="margin-bottom: 2rem;">
+      <p>In the spirit of the paper&rsquo;s hybrid thesis, this section demonstrates how I used GenAI to <strong>refine and enrich</strong> research extension ideas. Each card shows the progression from initial question to AI-assisted exploration to a refined proposal&mdash;the human&ndash;AI loop in practice.</p>
+    </div>
+
+    <div class="research-cards">
+      <div class="research-card anim">
+        <div class="research-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="rc-question">Cross-Cultural Validity of Synthetic Respondents</div>
+          <div class="rc-badge">Idea 1</div>
+        </div>
+        <div class="research-card-body"><div class="research-card-body-inner">
+          <div class="rc-layer">
+            <div class="rc-layer-label">Initial Question</div>
+            <p>Do LLMs generate equally valid synthetic respondents across different cultural contexts? The paper tests only U.S. consumers&mdash;would the hybrid approach work for a Japanese, Brazilian, or Nigerian market?</p>
+          </div>
+          <div class="rc-layer">
+            <div class="rc-layer-label">How I Used GenAI</div>
+            <p>I prompted Claude to explore how cultural dimensions (Hofstede&rsquo;s individualism/collectivism, high/low context communication) might affect LLM persona accuracy. The AI identified that LLMs likely perform better for high-internet-penetration cultures with more English-language training data&mdash;revealing a built-in Western bias.</p>
+          </div>
+          <div class="rc-layer">
+            <div class="rc-layer-label">Refined Proposal</div>
+            <p>A multi-country study comparing hybrid research accuracy across 4 markets (U.S., Japan, Brazil, Nigeria) using Hofstede dimensions as moderators. Test whether few-shot calibration with local data can correct for cultural bias in LLM-generated respondents. <strong>Contribution:</strong> Boundary conditions for the hybrid approach&rsquo;s global applicability.</p>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="research-card anim">
+        <div class="research-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="rc-question">The Disclosure Effect on Managerial Trust</div>
+          <div class="rc-badge">Idea 2</div>
+        </div>
+        <div class="research-card-body"><div class="research-card-body-inner">
+          <div class="rc-layer">
+            <div class="rc-layer-label">Initial Question</div>
+            <p>Does knowing that marketing research used AI-generated synthetic data change how managers weigh the findings in their decision-making?</p>
+          </div>
+          <div class="rc-layer">
+            <div class="rc-layer-label">How I Used GenAI</div>
+            <p>I used GenAI to brainstorm experimental designs. It suggested a 2&times;2 framework (AI-disclosed vs. not disclosed) &times; (high-stakes vs. low-stakes decision). Through iteration, I refined the dependent variables to include both <em>stated trust</em> and <em>behavioral willingness to act</em> on the research findings.</p>
+          </div>
+          <div class="rc-layer">
+            <div class="rc-layer-label">Refined Proposal</div>
+            <p>A behavioral experiment with marketing managers (N&asymp;200). Present identical research findings with manipulated disclosure of AI involvement. Measure: (a) perceived credibility, (b) willingness to allocate budget based on findings, (c) request for additional human-only validation. <strong>Contribution:</strong> Understanding the &ldquo;AI penalty&rdquo; in research credibility and its moderators.</p>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="research-card anim">
+        <div class="research-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="rc-question">Temporal Stability of LLM-Generated Insights</div>
+          <div class="rc-badge">Idea 3</div>
+        </div>
+        <div class="research-card-body"><div class="research-card-body-inner">
+          <div class="rc-layer">
+            <div class="rc-layer-label">Initial Question</div>
+            <p>Do LLM-generated consumer preferences have a &ldquo;shelf life&rdquo;? Since LLMs are trained on historical data, do their synthetic outputs reflect <em>current</em> sentiment or outdated patterns?</p>
+          </div>
+          <div class="rc-layer">
+            <div class="rc-layer-label">How I Used GenAI</div>
+            <p>Claude helped me think through the temporal dynamics: LLM training data has a cutoff, so preferences for emerging trends (e.g., new food categories, sustainability concerns) may lag reality. It suggested comparing LLM predictions at time T with actual consumer survey data at T+6 months for trending vs. stable product categories.</p>
+          </div>
+          <div class="rc-layer">
+            <div class="rc-layer-label">Refined Proposal</div>
+            <p>A longitudinal validation study: generate LLM synthetic survey data for 10 product categories (5 trending, 5 stable) at T=0, then collect real consumer data at T+3 and T+6 months. Compare accuracy decay rates. <strong>Contribution:</strong> Establishing when synthetic data &ldquo;expires&rdquo; and how RAG with current data can extend its validity.</p>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="research-card anim">
+        <div class="research-card-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="rc-question">Adversarial Quality Assessment: AI Checking AI</div>
+          <div class="rc-badge">Idea 4</div>
+        </div>
+        <div class="research-card-body"><div class="research-card-body-inner">
+          <div class="rc-layer">
+            <div class="rc-layer-label">Initial Question</div>
+            <p>Can we use one LLM to detect when another LLM&rsquo;s synthetic data is unreliable&mdash;reducing the need for costly human validation?</p>
+          </div>
+          <div class="rc-layer">
+            <div class="rc-layer-label">How I Used GenAI</div>
+            <p>I explored adversarial AI-on-AI validation approaches with GenAI. It proposed a &ldquo;red team&rdquo; framework where a second LLM is specifically prompted to identify inconsistencies, improbable response patterns, and hallucination signatures in synthetic data. The key insight from our iteration: this works best for <em>internal consistency</em> checks but cannot validate <em>external accuracy</em>.</p>
+          </div>
+          <div class="rc-layer">
+            <div class="rc-layer-label">Refined Proposal</div>
+            <p>Develop and test a dual-LLM quality assurance framework: LLM-A generates synthetic research data; LLM-B (different model or differently prompted) audits it for internal consistency, demographic plausibility, and response pattern anomalies. Benchmark against human expert detection rates. <strong>Contribution:</strong> Scalable quality control mechanism for synthetic marketing research data.</p>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: 1.2rem; margin: 2.5rem 0 1rem;" class="anim">The Human&ndash;AI Iteration Process</h3>
+    <div class="overview-text anim" style="margin-bottom: 1.5rem;">
+      <p>Here is an abbreviated example of how I iterated with GenAI to develop Research Idea #1:</p>
+    </div>
+
+    <div class="chat-transcript anim">
+      <div class="chat-msg human">
+        <div class="chat-avatar">BK</div>
+        <div class="chat-bubble">&ldquo;I want to extend the Arora et al. paper to study whether their hybrid approach works across different cultural contexts. What dimensions should I consider?&rdquo;</div>
+      </div>
+      <div class="chat-msg ai">
+        <div class="chat-avatar">AI</div>
+        <div class="chat-bubble">&ldquo;Key dimensions to consider: Hofstede&rsquo;s cultural framework (individualism/collectivism, uncertainty avoidance), high vs. low context communication styles, internet penetration rates affecting training data representation, and language-specific LLM capabilities.&rdquo;</div>
+      </div>
+      <div class="chat-msg human">
+        <div class="chat-avatar">BK</div>
+        <div class="chat-bubble">&ldquo;That&rsquo;s too broad. I want to focus specifically on the qualitative side&mdash;can LLMs generate culturally authentic synthetic respondents for non-Western markets?&rdquo;</div>
+      </div>
+      <div class="chat-msg ai">
+        <div class="chat-avatar">AI</div>
+        <div class="chat-bubble">&ldquo;Narrowed approach: Test synthetic respondent authenticity for high-context cultures (Japan, Korea) vs. low-context (U.S., Germany). Measure cultural authenticity via native expert panels rating whether synthetic respondents &lsquo;sound like&rsquo; real consumers from that culture. The hypothesis: LLMs will perform worse for high-context cultures where communication relies on implicit, non-verbal cues that are underrepresented in training data.&rdquo;</div>
+      </div>
+      <div class="chat-msg reflection">
+        <div class="chat-bubble"><strong>My reflection:</strong> The AI&rsquo;s suggestion to use native expert panels is methodologically strong, but I realized the more novel contribution is testing whether <em>few-shot calibration with local data</em> can close the cultural gap&mdash;this directly extends Arora et al.&rsquo;s finding about few-shot improvement while adding a cultural boundary condition.</div>
+      </div>
+    </div>
+
+    <div class="discussion-prompt anim" onclick="this.classList.toggle('open')">
+      <div class="prompt-header">
+        <span class="prompt-label">Your Turn</span>
+        <span class="prompt-toggle">Click to reveal</span>
+      </div>
+      <div class="prompt-content">
+        <p>Pick one of these research ideas (or propose your own extension of the paper). What would you change? What methodological challenges do you foresee? How would you actually execute the study, and what data would you need?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 9: DISCUSSION ROADMAP ===================== -->
+<section class="section-cream" id="roadmap">
+  <div class="container">
+    <div class="section-divider anim"></div>
+    <p class="section-label anim">Facilitation Guide</p>
+    <h2 class="section-title anim">Discussion Roadmap</h2>
+
+    <div class="timeline anim">
+      <div class="timeline-item">
+        <div class="timeline-phase">Phase 1 &mdash; 5 min</div>
+        <div class="timeline-title">Context Setting</div>
+        <div class="timeline-desc">Quick pulse: How many of you have used GenAI for research tasks this semester? Set the stakes&mdash;$84.3B industry, 70%+ CMO adoption, and the question of what &ldquo;marketing research&rdquo; means in an AI-augmented world.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Phase 2 &mdash; 10 min</div>
+        <div class="timeline-title">Framework Debate</div>
+        <div class="timeline-desc">Central question: Is &ldquo;collaboration&rdquo; the right framing, or is &ldquo;augmentation&rdquo; more honest? Discuss the paper&rsquo;s positioning of LLMs as collaborators vs. the reality of how most researchers actually use them.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Phase 3 &mdash; 10 min</div>
+        <div class="timeline-title">Methodology Deep Dive</div>
+        <div class="timeline-desc">Focus on Study 1 (qualitative)&mdash;the more provocative study. Key debate: the epistemological validity of synthetic respondents and what it means for qualitative research traditions.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Phase 4 &mdash; 10 min</div>
+        <div class="timeline-title">Practical Implications</div>
+        <div class="timeline-desc">When would YOU use this approach in your own research? Cost-benefit analysis for different contexts. Where does the hybrid approach add the most value vs. create the most risk?</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Phase 5 &mdash; 10 min</div>
+        <div class="timeline-title">Research Extensions</div>
+        <div class="timeline-desc">Present GenAI-refined research ideas. Class brainstorms improvements, identifies gaps, and proposes alternative directions.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-phase">Phase 6 &mdash; 5 min</div>
+        <div class="timeline-title">Takeaways &amp; Reflection</div>
+        <div class="timeline-desc">What is one thing you will think about differently after today? How does this paper change your view on the role of AI in academic marketing research?</div>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--font-heading); font-size: 1.2rem; margin: 2.5rem 0 1rem;" class="anim">Quick-Reference Discussion Questions</h3>
+    <ol class="quick-questions anim">
+      <li>How should IRBs handle research that uses synthetic respondents instead of human subjects?</li>
+      <li>The paper shows LLMs find themes humans miss. Could this be a feature of recombining training data rather than genuine insight?</li>
+      <li>Would you trust a product launch decision based on data where 50% of respondents were AI-generated?</li>
+      <li>How does the hybrid approach interact with the replication crisis in marketing research?</li>
+      <li>If LLMs are trained on existing marketing research, does using them for new research create a feedback loop?</li>
+      <li>What is the minimum level of human data needed to make synthetic data &ldquo;trustworthy&rdquo;?</li>
+      <li>Should journals require authors to disclose when LLMs were used in data generation or analysis?</li>
+      <li>How would you design a study to test whether managers can tell the difference between human-sourced and AI-generated research insights?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer-citation">
+      Arora, Neeraj, Ishita Chakraborty, and Yohei Nishimura (2025), &ldquo;AI&ndash;Human Hybrids for Marketing Research: Leveraging Large Language Models (LLMs) as Collaborators,&rdquo; <em>Journal of Marketing</em>, 89 (2), 43&ndash;70.
+    </div>
+    <p>MKT 397 &nbsp;|&nbsp; Spring 2026 &nbsp;|&nbsp; The University of Texas at Austin</p>
+    <p>Discussion led by Bella Kang &nbsp;|&nbsp; Professor Rex Yuxing Du</p>
+    <div class="footer-rule"></div>
+    <p class="footer-note">This website was designed using a human&ndash;AI collaborative process&mdash;in the spirit of the paper it discusses.</p>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // ===== Scroll Progress =====
+  const progressBar = document.querySelector('.scroll-progress');
+  function updateProgress() {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = h > 0 ? (window.scrollY / h * 100) + '%' : '0%';
+  }
+
+  // ===== Nav Background =====
+  const nav = document.getElementById('mainNav');
+  const hero = document.getElementById('hero');
+  function updateNav() {
+    const scrolled = window.scrollY > 80;
+    const inHero = window.scrollY < hero.offsetHeight - 80;
+    nav.classList.toggle('scrolled', scrolled);
+    nav.classList.toggle('at-hero', inHero && !scrolled);
+  }
+
+  window.addEventListener('scroll', function() {
+    updateProgress();
+    updateNav();
+  }, { passive: true });
+  updateProgress();
+  updateNav();
+
+  // ===== Active Nav Tracking =====
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sectionObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(function(link) {
+          link.classList.toggle('active', link.getAttribute('data-section') === id);
+        });
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '-56px 0px -40% 0px' });
+  sections.forEach(function(s) { sectionObserver.observe(s); });
+
+  // ===== Scroll Animations =====
+  const animObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        animObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.anim').forEach(function(el) { animObserver.observe(el); });
+
+  // ===== Accordions =====
+  document.querySelectorAll('.accordion-trigger').forEach(function(trigger) {
+    trigger.addEventListener('click', function() {
+      var item = this.closest('.accordion-item');
+      var isOpen = item.classList.contains('open');
+      // Close siblings in same accordion
+      item.parentElement.querySelectorAll('.accordion-item.open').forEach(function(s) {
+        s.classList.remove('open');
+      });
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // ===== Quality Ladder Animation =====
+  var ladderAnimated = false;
+  var ladder = document.getElementById('qualityLadder');
+  if (ladder) {
+    var ladderObserver = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !ladderAnimated) {
+        ladderAnimated = true;
+        ladder.querySelectorAll('.ladder-bar').forEach(function(bar, i) {
+          setTimeout(function() {
+            bar.style.width = bar.getAttribute('data-width') + '%';
+          }, i * 200);
+        });
+        ladderObserver.unobserve(ladder);
+      }
+    }, { threshold: 0.3 });
+    ladderObserver.observe(ladder);
+  }
+
+  // ===== Mobile Menu =====
+  var hamburger = document.getElementById('hamburgerBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  var mobileClose = document.getElementById('mobileClose');
+
+  hamburger.addEventListener('click', function() {
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Stagger link animations
+    mobileMenu.querySelectorAll('a').forEach(function(a, i) {
+      a.style.transitionDelay = (0.1 + i * 0.05) + 's';
+    });
+  });
+  function closeMobile() {
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+    mobileMenu.querySelectorAll('a').forEach(function(a) {
+      a.style.transitionDelay = '0s';
+    });
+  }
+  mobileClose.addEventListener('click', closeMobile);
+  mobileMenu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', closeMobile);
+  });
+
+  // ===== Smooth scroll for all anchor links =====
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        var offset = 70; // nav height
+        var y = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
